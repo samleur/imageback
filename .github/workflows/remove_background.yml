@@ -1,27 +1,33 @@
 name: Remove Background
 
-   on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-   jobs:
-     build:
-       runs-on: ubuntu-latest
-       steps:
-       - uses: actions/checkout@v2
-       - name: Set up Python
-         uses: actions/setup-python@v2
-         with:
-           python-version: '3.x'
-       - name: Install dependencies
-         run: |
-           python -m pip install --upgrade pip
-           pip install -r requirements.txt
-       - name: Download test image
-         run: |
-           wget -O input_image.png https://via.placeholder.com/600x400.png?text=Test+Image
-       - name: Run script
-         run: python remove_background_gui.py
-       - name: Upload result
-         uses: actions/upload-artifact@v2
-         with:
-           name: output_image
-           path: output_image.png
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Download test image
+      run: |
+        wget -O input_image.png https://via.placeholder.com/600x400.png?text=Test+Image
+    - name: Run script
+      run: python remove_background_gui.py
+    - name: Upload result
+      uses: actions/upload-artifact@v2
+      with:
+        name: output_image
+        path: output_image.png
