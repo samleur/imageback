@@ -1,6 +1,6 @@
 name: Remove Background
 
-   on: [push]
+   on: push
 
    jobs:
      build:
